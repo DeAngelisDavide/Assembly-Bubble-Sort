@@ -1,0 +1,50 @@
+00008000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 12/11/2020 21:09:52
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : BUBBLE SORT
+00000000                             3  * Written by : DAVIDE DE ANGELIS
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00008000                             7      ORG    $8000
+00008000                             8  START:           
+00008000  41F9 00008030              9           LEA ARRAY , A0  *SALVATAGGIO INDIRIZZO ARRAY IN A0
+00008006  4242                      10           CLR D2 *D2 = TRUE
+00008008  363C 0003                 11           MOVE #LEN-2 , D3 *D3 = LUNGHEZZA - 1
+0000800C                            12  LOOP: 
+0000800C  3010                      13           MOVE (A0) , D0 *SALVATAGGIO DELL'ELEMTNO DELL'ARRAY IN D0
+0000800E  3228 0002                 14           MOVE 2(A0) , D1 *SALVATAGGIO DELL'ELEMENTO SUCCESSIVO DELL'ARRAY IN D1
+00008012  B240                      15           CMP D0 , D1  *CONFRONTO D0 ,D1
+00008014  6C00 000C                 16           BGE NOSWAP   *SALTO A NONSWAP SE DO < D1
+00008018  3140 0002                 17           MOVE D0 , 2(A0) *SALVA D0 NELLA SUA POSIZIONE SUCCESSIVA ( POS 2(A0))
+0000801C  3081                      18           MOVE D1 , (A0) SALVA D1 NELLA SUA POSIZIONE PRECEDENTE (POS A0)
+0000801E  343C 0001                 19           MOVE #1 , D2 *D2 = FALSE
+00008022                            20  
+00008022  5448                      21  NOSWAP ADD #2 , A0  *INCREMENTO DI 2 DELL'INDIRIZZO
+00008024  51CB FFE6                 22         DBRA D3 , LOOP *SALTO A LOOP SE D0 (LEN) != -1 E DECREMENTO DI D0
+00008028                            23  
+00008028  4A42                      24         TST D2  *VERIFICA D2 (TRUE O FALSE , 0 O 1 )
+0000802A  66D4                      25         BNE START (SALTO ALL ' INIZIO SE D2 = 1 (FALSE)
+0000802C                            26            
+0000802C                            27  END
+0000802C  FFFF FFFF                 28      SIMHALT
+00008030= 0011 000B 000A 0...       29  ARRAY DC 17 , 11 , 10 , 18 , 5
+0000803A  =00000005                 30  LEN EQU 5 *LUNGHEZZA ARRAY
+0000803A                            31               
+0000803A                            32      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ARRAY               8030
+END                 802C
+LEN                 5
+LOOP                800C
+NOSWAP              8022
+START               8000
